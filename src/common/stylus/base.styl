@@ -1,0 +1,57 @@
+body, html
+  line-height: 1
+  font-weight: 200
+  font-size: 12px
+  font-family: 'Microsoft YaHei', 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', arial, sans-serif
+  background: #eaeaea
+  color: #666
+
+html, body, .container
+  width: 100%
+  height: 100%
+
+*
+  box-sizing: border-box;
+
+.clearfix
+  display: inline-block
+  &:after
+    display: block
+    content: "."
+    height: 0
+    line-height: 0
+    clear: both
+    visibility: hidden
+
+img
+  vertical-align: middle
+
+.red
+  color: #ef3a3a
+
+.green
+  color: #2bb050
+
+.orange
+  color: #fa892d
+
+.center
+  text-align: center
+
+.right
+  text-align: right
+
+.paddingtop
+  padding-top: $h44
+
+@media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5)
+  .border-1px
+    &::after
+      -webkit-transform: scaleY(0.7)
+      transform: scaleY(0.7)
+
+@media (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2)
+  .border-1px
+    &::after
+      -webkit-transform: scaleY(0.5)
+      transform: scaleY(0.5)
