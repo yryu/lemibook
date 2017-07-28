@@ -102,7 +102,7 @@
     {
       href: 'free.html?categoryId=1',
       src: require('./home.png'),
-      name: '精选'
+      name: '精选2'
     },
     {
       href: 'free.html?categoryId=2',
@@ -126,7 +126,7 @@
     }
   ];
   export default {
-    data () {
+    data() {
       return {
         banner: [],
         categories: [],
