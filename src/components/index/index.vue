@@ -102,7 +102,7 @@
     {
       href: 'free.html?categoryId=1',
       src: require('./home.png'),
-      name: '精选2'
+      name: '精选'
     },
     {
       href: 'free.html?categoryId=2',
