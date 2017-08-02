@@ -134,15 +134,13 @@
         bookList1_book: [],
         bookList1_books: [],
         bookList2: [],
-        bookList2_books: [],
         navList: navList,
         isLogin: false,
         username: '',
         showLoading: true,
         latelyList: [],
         showLately: false,
-        rotate: {},
-        DetailHost: 'detail.html'
+        rotate: {}
       };
     },
     components: {
@@ -156,16 +154,30 @@
     },
     created() {
       this.$nextTick(() => {
+        // this.getBookList();
+      });
+    },
+    activated() {
+      this.$nextTick(() => {
+        this.initData();
         this.getBookList();
       });
     },
     methods: {
-//      initPage: function () {
-//        this.bookList1_book = [];
-//        this.bookList1_books = [];
-//      },
+      initData: function () {
+        this.banner = [];
+        this.categories = [];
+        this.bookList1 = [];
+        this.bookList1_book = [];
+        this.bookList1_books = [];
+        this.isLogin = false;
+        this.username = '';
+        this.showLoading = true;
+        this.latelyList = [];
+        this.rotate = {};
+      },
       getBookList: function () {
-        let user = getLoginUser;
+        let user = getLoginUser();
         if (user) {
           this.isLogin = true;
           httpRequest(api.userInfo, {

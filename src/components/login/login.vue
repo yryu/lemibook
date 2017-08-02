@@ -41,12 +41,24 @@
     components: {
       'v-header': header
     },
-    created() {
+    activated() {
       this.$nextTick(() => {
-
+        this.initData();
+      });
+    },
+    beforeRouteEnter (to, from, next) {
+      next(vm => {
+        vm.path = from.path;
       });
     },
     methods: {
+      initData() {
+        this.phone = '';
+        this.code = '';
+        this.isCounting = false;
+        this.count = 60;
+        this.codeText = '获取验证码';
+      },
       sendCode() {
         if (this.isCounting) { // 重复点击获取验证码
           return;
@@ -100,11 +112,10 @@
           }, (res) => {
             if (res.success) {
               var user = res.data;
-              console.log(user);
               var jsonS = JSON.stringify(user);
               this.$cookie.set('user', jsonS, {expires: 7, domain: config.wexinData.domain});
-//              var reffer = self.getReffer();
-//              window.location.href = reffer;
+              // 跳转回之前的页面
+              this.$router.push(this.path);
             } else {
               console.log(res.message);
               this.code = '';

@@ -16,8 +16,8 @@
             </div>
           </div>
           <div class="book-btn">
-            <div class="btn bindRel">{{book.bindRel}}</div>
-            <router-link class="btn readCatelogId" :to="book.href">{{book.readCatelogId}}</router-link>
+            <div class="btn bindRel" @click="addToBookShelf">{{book.bindRel}}</div>
+            <router-link class="btn readCatelogId" :to="book.href">{{book.readCatelogText}}</router-link>
           </div>
         </div>
         <div class="book-abstracts border-1px">{{book.abstracts}}</div>
@@ -65,6 +65,11 @@
       'v-header': header,
       'v-loading': loading
     },
+    beforeRouteEnter (to, from, next) {
+      next(vm => {
+        vm.name = from.name;
+      });
+    },
     created() {
       this.$nextTick(() => {
         storage.set('bookId', this.$route.params.bookId);
@@ -75,6 +80,10 @@
       this.$nextTick(() => {
         if (storage.get('bookId') !== this.$route.params.bookId) {
           storage.set('bookId', this.$route.params.bookId);
+          this.initData();
+          this.loadData();
+        } else if (this.name === 'login') {
+          this.params.userId = getUserId();
           this.initData();
           this.loadData();
         }
@@ -109,10 +118,10 @@
             let bookId = this.$route.params.bookId;
             if (book.readCatelogId) {
               book.href = {name: 'bookreader', params: {bookId, catelogId: book.readCatelogId}};
-              book.readCatelogId = '继续阅读';
+              book.readCatelogText = '继续阅读';
             } else {
               book.href = {name: 'bookreader', params: {bookId, catelogId: catelogs[0].id}};
-              book.readCatelogId = '免费阅读';
+              book.readCatelogText = '免费阅读';
             }
             catelogs.forEach(function (val, index) {
               if (val.priceNum) {
@@ -134,6 +143,11 @@
             console.log('error');
           }
         });
+      },
+      addToBookShelf() {
+        if (!getUserId()) {
+          this.$router.push({path: '/login'});
+        }
       }
     }
   };

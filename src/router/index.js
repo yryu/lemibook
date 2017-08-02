@@ -15,14 +15,17 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'index',
       component: index
     },
     {
       path: '/login',
+      name: 'login',
       component: login
     },
     {
       path: '/ranking',
+      name: 'ranking',
       component: ranking
     },
     {

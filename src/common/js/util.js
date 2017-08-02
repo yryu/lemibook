@@ -74,10 +74,10 @@ function checkTime(i) {
  * 格式化时间 yyyy-mm-dd
  */
 function formatDate(value) {
-  var today = new Date(value);
-  var year = today.getFullYear();
-  var month = today.getMonth() + 1;
-  var date = today.getDate();
+  let today = new Date(value);
+  let year = today.getFullYear();
+  let month = today.getMonth() + 1;
+  let date = today.getDate();
   month = checkTime(month);
   date = checkTime(date);
   return [year, month, date].join('-');
@@ -111,7 +111,7 @@ function getLoginToken() {
  * 用户 userId
  */
 function getUserId() {
-  var user = getLoginUser();
+  let user = getLoginUser();
   if (user === null || user === 'undefined') {
     return null;
   }
