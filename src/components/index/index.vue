@@ -126,7 +126,7 @@
     }
   ];
   export default {
-    data () {
+    data() {
       return {
         banner: [],
         categories: [],
