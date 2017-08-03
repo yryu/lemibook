@@ -10,7 +10,7 @@ import bookreader from 'components/bookreader/bookreader';
 
 Vue.use(Router);
 Vue.use(VueCookie);
-Vue.use(Toasted);
+Vue.use(Toasted, {duration: 2000});
 
 export default new Router({
   linkActiveClass: 'active',

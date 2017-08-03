@@ -16,7 +16,7 @@
             </div>
           </div>
           <div class="book-btn">
-            <div class="btn bindRel" @click="addToBookShelf">{{book.bindRel}}</div>
+            <div class="btn bindRel" @click="addToBookShelf" ref="bindRelWrapper">{{book.bindRel}}</div>
             <router-link class="btn readCatelogId" :to="book.href">{{book.readCatelogText}}</router-link>
           </div>
         </div>
@@ -140,13 +140,15 @@
             this.catelogs = catelogs;
             this.comments = comments;
           } else {
-            this.$toasted.show(res.message, {duration: 2000});
+            this.$toasted.show(res.message);
           }
         });
       },
       addToBookShelf() {
         if (!getUserId()) {
           this.$router.push({path: '/login'});
+        } else {
+
         }
       }
     }

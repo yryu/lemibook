@@ -109,7 +109,7 @@
             // 滚动到顶部
             // $('html,body').animate({scrollTop: 0}, 5);
           } else {
-            this.$toasted.show(res.message, {duration: 2000});
+            this.$toasted.show(res.message);
           }
         });
       },

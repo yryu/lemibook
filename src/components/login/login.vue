@@ -64,23 +64,23 @@
           return;
         }
         if (this.phone.length <= 0) {
-          this.$toasted.show('手机号不能为空', {duration: 2000});
+          this.$toasted.show('手机号不能为空');
           return;
         }
         this.count = 60;
         if (checkPhone(this.phone)) {
           httpRequest(api.sendCode, {phone: this.phone}, (res) => {
             if (res.success) {
-              this.$toasted.show('验证码发送成功', {duration: 2000});
+              this.$toasted.show('验证码发送成功');
               this.isCounting = true;
               this.startTimer();
             } else {
-              this.$toasted.show(res.message, {duration: 2000});
+              this.$toasted.show(res.message);
               self.isCounting = false;
             }
           });
         } else {
-          this.$toasted.show('手机号不正确', {duration: 2000});
+          this.$toasted.show('手机号不正确');
         }
       },
       startTimer() {
@@ -97,11 +97,11 @@
       },
       login: function () {
         if (this.phone.length <= 0) {
-          this.$toasted.show('手机号不能为空', {duration: 2000});
+          this.$toasted.show('手机号不能为空');
           return;
         }
         if (this.code.length <= 0) {
-          this.$toasted.show('验证码不能为空', {duration: 2000});
+          this.$toasted.show('验证码不能为空');
           return;
         }
         if (checkPhone(this.phone)) {
@@ -110,19 +110,19 @@
             smsCode: this.code
           }, (res) => {
             if (res.success) {
-              this.$toasted.show('登录成功', {duration: 2000});
+              this.$toasted.show('登录成功');
               let user = res.data;
               let jsonS = JSON.stringify(user);
               this.$cookie.set('user', jsonS, {expires: 7, domain: config.wexinData.domain});
               // 跳转回之前的页面
               this.$router.push(this.path);
             } else {
-              this.$toasted.show(res.message, {duration: 2000});
+              this.$toasted.show(res.message);
               this.code = '';
             }
           });
         } else {
-          this.$toasted.show('手机号不正确', {duration: 2000});
+          this.$toasted.show('手机号不正确');
         }
       }
     }
