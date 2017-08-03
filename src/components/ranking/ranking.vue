@@ -136,7 +136,7 @@
                 this._initScroll();
               });
             } else {
-              console.log('error');
+              this.$toasted.show(res.message, {duration: 2000});
             }
           }
         });

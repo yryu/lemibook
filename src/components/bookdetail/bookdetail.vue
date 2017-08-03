@@ -140,7 +140,7 @@
             this.catelogs = catelogs;
             this.comments = comments;
           } else {
-            console.log('error');
+            this.$toasted.show(res.message, {duration: 2000});
           }
         });
       },

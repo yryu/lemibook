@@ -203,7 +203,7 @@
               }
               this.latelyList = tempArr;
             } else {
-              console.log(res.message);
+              this.$toasted.show(res.message, {duration: 2000});
             }
           });
         }
@@ -243,7 +243,7 @@
               }
             }
           } else {
-            console.log('error');
+            this.$toasted.show(res.message, {duration: 2000});
           }
         });
       }

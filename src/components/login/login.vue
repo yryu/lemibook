@@ -11,7 +11,7 @@
         <div class="login-item">
           <i class="iconfont icon-lock"></i>
           <input type="text" name="text" maxlength="30" placeholder="请输入验证码" class="txt"
-                 v-model.number.trim="code">
+                 v-model.trim="code">
           <button class="getcode" :class="{gray: isCounting}" type="button" @click="sendCode">{{codeText}}</button>
         </div>
       </div>
@@ -64,24 +64,23 @@
           return;
         }
         if (this.phone.length <= 0) {
-          console.log('手机号不能为空');
+          this.$toasted.show('手机号不能为空', {duration: 2000});
           return;
         }
         this.count = 60;
         if (checkPhone(this.phone)) {
-          console.log('验证通过');
           httpRequest(api.sendCode, {phone: this.phone}, (res) => {
             if (res.success) {
-              console.log('发送成功');
+              this.$toasted.show('验证码发送成功', {duration: 2000});
               this.isCounting = true;
               this.startTimer();
             } else {
-              console.log('error');
+              this.$toasted.show(res.message, {duration: 2000});
               self.isCounting = false;
             }
           });
         } else {
-          console.log('手机号不正确');
+          this.$toasted.show('手机号不正确', {duration: 2000});
         }
       },
       startTimer() {
@@ -98,11 +97,11 @@
       },
       login: function () {
         if (this.phone.length <= 0) {
-          console.log('手机号不能为空');
+          this.$toasted.show('手机号不能为空', {duration: 2000});
           return;
         }
         if (this.code.length <= 0) {
-          console.log('验证码不能为空');
+          this.$toasted.show('验证码不能为空', {duration: 2000});
           return;
         }
         if (checkPhone(this.phone)) {
@@ -111,18 +110,19 @@
             smsCode: this.code
           }, (res) => {
             if (res.success) {
-              var user = res.data;
-              var jsonS = JSON.stringify(user);
+              this.$toasted.show('登录成功', {duration: 2000});
+              let user = res.data;
+              let jsonS = JSON.stringify(user);
               this.$cookie.set('user', jsonS, {expires: 7, domain: config.wexinData.domain});
               // 跳转回之前的页面
               this.$router.push(this.path);
             } else {
-              console.log(res.message);
+              this.$toasted.show(res.message, {duration: 2000});
               this.code = '';
             }
           });
         } else {
-          console.log('手机号不正确');
+          this.$toasted.show('手机号不正确', {duration: 2000});
         }
       }
     }
@@ -155,8 +155,9 @@
             flex: 1
             font-size: 14px
           .getcode
-            width: 76px
+            width: 72px
             height: 32px
+            padding: 0
             position: absolute
             top: (($h44 - @height) / 2)
             right: 10px

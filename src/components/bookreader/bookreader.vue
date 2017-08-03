@@ -109,7 +109,7 @@
             // 滚动到顶部
             // $('html,body').animate({scrollTop: 0}, 5);
           } else {
-            console.log('请求失败');
+            this.$toasted.show(res.message, {duration: 2000});
           }
         });
       },
