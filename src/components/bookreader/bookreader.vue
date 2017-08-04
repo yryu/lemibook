@@ -2,6 +2,9 @@
   <div class="bookreader">
     <v-loading v-if="showLoading"></v-loading>
     <div v-else>
+      <transition name="fade">
+        <v-header v-show="showFixed" class="header"></v-header>
+      </transition>
       <div class="free">
         <div class="addToBookShelf" @click="addToBookShelf">加入书架</div>
         <div class="free-wrap" @click="showHeadWrap">
@@ -27,8 +30,9 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import header from 'components/header/readerHeader';
   import loading from 'components/loading/loading';
-  import httpRequest, {httpRequest2, getUserId} from 'common/js/util';
+  import httpRequest, {getRequest, getUserId} from 'common/js/util';
   import api from 'common/js/api';
   import storage from 'good-storage';
 
@@ -42,10 +46,12 @@
         },
         showLoading: true,
         chapter_content: '',
-        fontSize: 20
+        fontSize: 20,
+        showFixed: false
       };
     },
     components: {
+      'v-header': header,
       'v-loading': loading
     },
     created() {
@@ -98,7 +104,7 @@
         // this.showBuyCont = false;
         // this.showFixed = false;
         this.read = data;
-        httpRequest2(data.url, (res) => {
+        getRequest(data.url, (res) => {
           if (res.status === 200) { // 免费章节
             let array = res.data.split('\r\n');
             let str = '';
@@ -113,8 +119,8 @@
           }
         });
       },
-      showHeadWrap() {
-
+      showHeadWrap() { // 点击文章内容区域，头跟尾toogle
+        this.showFixed = !this.showFixed;
       }
     }
   };
@@ -141,7 +147,7 @@
       .free-wrap {
         padding: 0 $padding 80px
         .free-title {
-          padding: 40px 0 22px
+          padding: 43px 0 20px
           font-size: 22px
           text-align: center
           color: #000
@@ -171,4 +177,10 @@
           }
         }
       }
+  .header
+    opacity: 1
+    &.fade-enter-active, &.fade-leave-active
+      transition: all .3s
+    &.fade-enter, &.fade-leave-active
+      opacity: 0
 </style>

@@ -19,7 +19,7 @@ function httpRequest(url, params, callback) {
   axios.post(url, qs.stringify(params)).then((res) => {
     callback(res.data);
   }).catch((error) => {
-    console.log(error);
+    Vue.$toasted(error);
   });
 }
 
@@ -29,14 +29,14 @@ function httpRequest(url, params, callback) {
  * @params 参数
  * @callback 回调
  */
-function httpRequest2(url, callback) {
+function getRequest(url, callback) {
   axios.defaults.headers = {
     'Content-Type': 'application/x-www-form-urlencoded;'
   };
   axios.get(url).then((res) => {
     callback(res);
   }).catch((error) => {
-    console.log(error);
+    Vue.$toasted(error);
   });
 }
 
@@ -119,4 +119,4 @@ function getUserId() {
 }
 
 export default httpRequest;
-export {httpRequest2, urlParse, formatDate, getLoginUser, getUserId};
+export {getRequest, urlParse, formatDate, getLoginUser, getUserId};
